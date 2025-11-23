@@ -20,5 +20,10 @@ namespace MiniProyectoBanking.Core.Application.Dtos.Account
         public decimal? Monto { get; set; }
 
         public decimal? MontoAdicional { get; set; }
+
+        public static implicit operator RegisterRequest(RegisterRequest v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

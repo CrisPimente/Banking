@@ -54,7 +54,7 @@ namespace MiniProyectoBanking.Core.Application.Services
                 Nombre = userDto.Nombre,
                 Apellido = userDto.Apellido,
                 Cedula = userDto.Cedula,
-                Rol = userDto.Tipo.ToString()
+                Rol = Enum.Parse<MiniProyectoBanking.Core.Application.Enums.Roles>(userDto.Tipo.ToString())
             };
 
             return await _accountService.EditUserAsync(registerRequest, origin);
