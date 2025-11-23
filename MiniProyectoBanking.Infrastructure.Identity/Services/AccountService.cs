@@ -97,13 +97,13 @@ namespace MiniProyectoBanking.Infrastructure.Identity.Services
                 Apellido = request.Apellido,
                 UserName = request.UserName,
                 Cedula = request.Cedula,
-                EmailConfirmed = request.Rol == "Admin"
+                EmailConfirmed = request.Rol == Roles.Admin
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
-                if (request.Rol == "Admin")
+                if (request.Rol == Roles.Admin)
                 {
                     await _userManager.AddToRoleAsync(user, Roles.Admin.ToString());
                 }
