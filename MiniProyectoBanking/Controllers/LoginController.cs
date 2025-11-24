@@ -31,7 +31,7 @@ namespace MiniProyectoBanking.Controllers
             {
                 return View(vm);
             }
-            AuthenticationResponse userVm = await _usuarioService.LoginAsyncs(vm);
+            AuthenticationResponse userVm = await _usuarioService.LoginAsync(vm);
             if (userVm != null && !userVm.HasError)
             {
                 // Guardar información del usuario en la sesión
