@@ -4,23 +4,63 @@
 
 @if (TempData["ErrorMensaje"] != null)
 {
-    <div class="alert alert-danger">
+    <div class="alert alert-danger text-center">
         @TempData["ErrorMensaje"]
     </div>
 }
 
-<h3>Estadísticas de la aplicación</h3>
+<h3 class="fw-bold mb-4">Estadísticas generales</h3>
 
-<div class="row">
-    <div class="col-md-12 mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="mb-4">Total de transacciones es: <span class="text-success">@ViewData["TotalTransacciones"]</span></h4>
-                <h4 class="mb-4">Total de transacciones hechas el día de hoy: <span class="text-success">@ViewData["TransaccionesHoy"]</span></h4>
-                <h4 class="mb-4">Total de usuarios activos: <span class="text-success">@ViewData["TotalUsuariosActivos"]</span></h4>
-                <h4 class="mb-4">Total de usuarios inactivos: <span class="text-success">@ViewData["TotalUsuariosInactivos"]</span></h4>
-                <h4 class="mb-3">Total de productos: <span class="text-success">@ViewData["TotalProductos"]</span></h4>
+<div class="row g-4">
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-arrow-left-right text-primary" style="font-size: 2rem;"></i>
+                <h6 class="mt-2">Total de transacciones</h6>
+                <h3 class="fw-bold text-primary">@ViewData["TotalTransacciones"]</h3>
             </div>
         </div>
     </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-calendar-day text-info" style="font-size: 2rem;"></i>
+                <h6 class="mt-2">Transacciones hoy</h6>
+                <h3 class="fw-bold text-info">@ViewData["TransaccionesHoy"]</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-person-check text-success" style="font-size: 2rem;"></i>
+                <h6 class="mt-2">Usuarios activos</h6>
+                <h3 class="fw-bold text-success">@ViewData["TotalUsuariosActivos"]</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-person-x text-danger" style="font-size: 2rem;"></i>
+                <h6 class="mt-2">Usuarios inactivos</h6>
+                <h3 class="fw-bold text-danger">@ViewData["TotalUsuariosInactivos"]</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-box-seam text-warning" style="font-size: 2rem;"></i>
+                <h6 class="mt-2">Total de productos</h6>
+                <h3 class="fw-bold text-warning">@ViewData["TotalProductos"]</h3>
+            </div>
+        </div>
+    </div>
+
 </div>
