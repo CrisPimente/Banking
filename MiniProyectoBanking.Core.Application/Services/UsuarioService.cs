@@ -1,15 +1,15 @@
-﻿using MiniProyectoBanking.Core.Application.Interfaces.Services;
-using MiniProyectoBanking.Core.Application.ViewModels.Usuarios;
-using AutoMapper;
+﻿using AutoMapper;
 using MiniProyectoBanking.Core.Application.Dtos.Account;
+using MiniProyectoBanking.Core.Application.Enums;
+using MiniProyectoBanking.Core.Application.Interfaces.Services;
+using MiniProyectoBanking.Core.Application.ViewModels.Usuarios;
 
 namespace MiniProyectoBanking.Core.Application.Services
 {
     public class UsuarioService : IUsuarioService
     {
         private readonly IAccountService _accountService;
-        private readonly IMapper _mapper;
-        private readonly IProductoService _productoService;
+        private readonly IMapper _mapper;       
 
         public UsuarioService(IMapper mapper, IAccountService accountService)
         {
@@ -17,7 +17,7 @@ namespace MiniProyectoBanking.Core.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<AuthenticationResponse> LoginAsyncs(LoginViewModel vm)
+        public async Task<AuthenticationResponse> LoginAsync(LoginViewModel vm)
         {
             AuthenticationRequest Loginrequest = _mapper.Map<AuthenticationRequest>(vm);
             AuthenticationResponse userResponse = await _accountService.AuthenticateAsync(Loginrequest);
@@ -25,7 +25,7 @@ namespace MiniProyectoBanking.Core.Application.Services
             return userResponse;
         }
 
-        public async Task<RegisterResponse> RegisterAsyncs(SaveUsuarioViewModel vm, string origin)
+        public async Task<RegisterResponse> RegisterAsync(SaveUsuarioViewModel vm, string origin)
         {
             RegisterRequest RegisterRequest = _mapper.Map<RegisterRequest>(vm);
             return await _accountService.RegisterBasicUserAsync(RegisterRequest, origin);
@@ -43,6 +43,13 @@ namespace MiniProyectoBanking.Core.Application.Services
             {
                 response.HasError = true;
                 response.Error = "User not found.";
+                return response;
+            }
+
+            if (!Enum.TryParse<Roles>(userDto.Tipo, out var rolParsed))
+            {
+                response.HasError = true;
+                response.Error = "El rol especificado no es válido.";
                 return response;
             }
 
@@ -76,25 +83,6 @@ namespace MiniProyectoBanking.Core.Application.Services
             return await _accountService.ConfirmUserEmailAsync(vm);
         }
 
-        /*
-                public async Task<UsuarioViewModel> GetByNombreUsuario(string nombreUsuario)
-                {
-                    var usuario = await _usuarioRepository.GetByNombreUsuario(nombreUsuario);
-                    if (usuario == null) return null;
-
-                    return new UsuarioViewModel
-                    {
-                        Id = usuario.Id,
-                        Nombre = usuario.Nombre,
-                        Apellido = usuario.Apellido,
-                        Correo = usuario.Correo,
-                        Cedula = usuario.Cedula,
-                        NombreUsuario = usuario.NombreUsuario,
-                        Estado= usuario.Estado,
-                        Tipo= usuario.Tipo,
-                    };
-                }
-        */
         public async Task<int> GetTotalUsuariosActivos()
         {
             return await _accountService.CountUsuariosByEstado(true);
