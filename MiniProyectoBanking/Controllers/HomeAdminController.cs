@@ -23,12 +23,6 @@ namespace MiniProyectoBanking.Controllers
 
         public async Task<IActionResult> Index()
         {
-            if (!_validateUserSession.HasUser())
-            {
-                TempData["ErrorMensaje"] = "No tienes permiso para acceder a estas secciones, tienes que iniciar sesión.";
-                return RedirectToAction("Index", "Login");
-            }
-
             var userType = _validateUserSession.GetUserType(); 
 
             if (userType == "Cliente")
