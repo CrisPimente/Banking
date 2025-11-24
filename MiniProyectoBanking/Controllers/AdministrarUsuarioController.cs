@@ -46,7 +46,7 @@ namespace MiniProyectoBanking.Controllers
                 return View(vm);
             }
             var origin = Request.Headers["origin"];
-            RegisterResponse response = await _usuarioService.RegisterAsyncs(vm, origin);
+            RegisterResponse response = await _usuarioService.RegisterAsync(vm, origin);
             if (response.HasError)
             {
                 vm.HasError = response.HasError;
